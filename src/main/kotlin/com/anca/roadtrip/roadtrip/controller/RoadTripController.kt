@@ -1,4 +1,4 @@
-package com.anca.roadtrip.roadtrip
+package com.anca.roadtrip.roadtrip.controller
 
 import com.anca.roadtrip.roadtrip.domain.Checkpoint
 import com.anca.roadtrip.roadtrip.domain.CheckpointRepository
@@ -23,4 +23,7 @@ class RoadTripController(val repository: CheckpointRepository) {
 
     @GetMapping("/next")
     fun next() = repository.findNextCheckpoints(now())
+
+    @GetMapping("/all")
+    fun all() = repository.findAll()
 }
