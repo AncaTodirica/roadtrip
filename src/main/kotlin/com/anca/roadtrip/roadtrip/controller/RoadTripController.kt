@@ -4,29 +4,29 @@ import com.anca.roadtrip.roadtrip.domain.Checkpoint
 import com.anca.roadtrip.roadtrip.domain.CheckpointRepository
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import java.time.LocalDateTime.now
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/checkpoint")
 class RoadTripController(val repository: CheckpointRepository) {
 
-    @PutMapping("/v1/add")
+    @PostMapping
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     fun addNewCheckpoint(@RequestBody checkPoint: Checkpoint) = repository.insert(checkPoint)
 
-    @GetMapping("/v1/find")
-    fun find(@RequestParam name: String): Flux<Checkpoint> = repository.findByName(name)
+    @GetMapping("/{id}")
+    fun find(@PathVariable id: String): Mono<Checkpoint> = repository.findById(id)
 
-    @GetMapping("/v1/first")
+    @GetMapping
     fun findFirst() = repository.findFirstByOrderByDateAsc()
 
-    @GetMapping("/v1/last")
+    @GetMapping("/last")
     fun findLast() = repository.findFirstByOrderByDateDesc()
 
-    @GetMapping("/v1/next")
+    @GetMapping("/next")
     fun next() = repository.findNextCheckpoints(now())
 
-    @GetMapping("/v1/all")
+    @GetMapping("/all")
     fun all() = repository.findAll()
 }

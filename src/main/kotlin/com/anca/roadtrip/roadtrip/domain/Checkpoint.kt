@@ -12,6 +12,6 @@ data class Checkpoint(
 
     val name: String,
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     val date: LocalDateTime
 )
